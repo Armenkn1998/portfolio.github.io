@@ -47,14 +47,21 @@
 
   function php_email_form_submit(thisForm, action, formData) {
     fetch(action, {
-      method: 'POST',
+      method: "POST",
+      Allow: "POST",
       body: formData,
-      headers: {'X-Requested-With': 'XMLHttpRequest'}
+      headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Methods": "GET, PUT, POST, UPDATE, DELETE, OPTIONS",}
     })
     .then(response => {
       if( response.ok ) {
+        console.log("ajdfh")
         return response.text()
       } else {
+        console.log(1232)
         throw new Error(`${response.status} ${response.statusText} ${response.url}`); 
       }
     })
@@ -68,6 +75,7 @@
       }
     })
     .catch((error) => {
+      console.log("error", error);
       displayError(thisForm, error);
     });
   }
